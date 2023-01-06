@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.demo.models.Division;
+import com.example.demo.models.Region;
 public class DivisionDao { 
     private Connection con;
 
@@ -13,18 +14,42 @@ public class DivisionDao {
 
     public List<Division> getAll() {
         List<Division> divisions = new ArrayList<>();
-        String query = "Select id, name from tb_m_division";
+        String query = "Select d.id, d.name, r.name from tb_m_division d join tb_m_region r on d.regionId = r.id";
         try {
             ResultSet resultSet = con.prepareStatement(query).executeQuery();
             while (resultSet.next()) {
-                System.out.println(resultSet.getInt(1) + " " + resultSet.getString(2));
+                Division division = new Division();
+                Region region = new Region();
+                division.setId(resultSet.getInt(1));
+                division.setName(resultSet.getString(2));
+                division.setRegion(region);
+                // region.setName(resultSet.getString(3));
+                region.setName(resultSet.getString(4));
+                divisions.add(division);
             }
         } catch (Exception e) {
-       
             e.printStackTrace();
         }
         return divisions;
     }
+
+    public Division getById(Integer id){
+        Division division = new Division();
+        String query = "SELECT * FROM tb_m_division WHERE id = ?";
+        try {
+            PreparedStatement prepareStatement = con.prepareStatement(query);
+            prepareStatement.setInt(1, id);
+            ResultSet resultSet = prepareStatement.executeQuery();
+            while (resultSet.next()) {
+                division.setId(resultSet.getInt(1));
+                division.setName(resultSet.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return division;
+    }
+
     public boolean insertData(Division division){
         try {
             PreparedStatement preparedStatement = con.prepareStatement("Insert INTO tb_m_division(id, name) values(?,?)");

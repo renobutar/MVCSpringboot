@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 //import javax.persistence.JoinColumn;
 import javax.persistence.Table;
@@ -40,5 +41,11 @@ public class Division {
 
     public String getName() {
         return name;
+    }
+    public void setRegion(Region region){
+        this.region = region;
+    }
+    public Region getRegion(){
+        return region;
     }
 }
