@@ -12,7 +12,7 @@ public class DivisionDao {
     }
 
     public List<Division> getAll() {
-        List<Division> division = new ArrayList<>();
+        List<Division> divisions = new ArrayList<>();
         String query = "Select id, name from tb_m_division";
         try {
             ResultSet resultSet = con.prepareStatement(query).executeQuery();
@@ -23,7 +23,7 @@ public class DivisionDao {
        
             e.printStackTrace();
         }
-        return division;
+        return divisions;
     }
     public boolean insertData(Division division){
         try {
