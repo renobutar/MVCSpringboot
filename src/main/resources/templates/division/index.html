@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class = "container">
+            <a 
+                style="margin-bottom: 10px; margin-top: 10px; color: azure;"
+                th:href="@{/division/form}"
+                >CREATE NEW</a>
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>NAME</th>
+                        <th>ACTION</th>
+                    </tr>
+                    <tbody>
+                        <tr th:each="division : ${division}">
+                            <td th:text="${division.id}"></td>
+                            <td th:text="${division.name}"></td>
+                            <td><a 
+                                class="btn btn-primary"
+                                style="margin-right: 1px; color: black"
+                                th:href="@{division/form/{id} (id=${division.id})}">Edit</a>
+                                <!-- <a 
+                                class="btn btn-primary"
+                                style="margin-right: 1px;"
+                                th:method="post"
+                                type="submit"
+                                th:href="@{/region/delete/{id}(id=${region.id})}">Delete</a> -->
+                                <form th:action="@{division/delete/{id}(id=${division.id})}" th:method="post"> 
+                                    <button type="submit" class="btn btn-primary"
+                                    style="margin-bottom: 5px; margin-top: 5px; color :brown;"
+                                    >Delete
+                                    </button>
+                                </form>
+                            </td> 
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+    </body>
+</html>
